@@ -1,4 +1,75 @@
-This is a Cosmos App project bootstrapped with [`create-cosmos-app`](https://github.com/cosmology-tech/create-cosmos-app).
+Attempting to use [`ses`](https://github.com/endojs/endo/tree/master/packages/ses) with [`create-cosmos-app`](https://github.com/cosmology-tech/create-cosmos-app).
+
+# Overview:
+
+I created a cosmos app using [`create-cosmos-app`](https://github.com/cosmology-tech/create-cosmos-app) in the initial commit. Then, I tried to install and run `ses` using a top-level import with the pattern described in https://nextjs.org/docs/architecture/supported-browsers#custom-polyfills.
+
+I ran into the following error (screenshot):
+
+<img width="942" alt="Screenshot 2024-02-04 at 10 18 56 PM" src="https://github.com/agoric-labs/hardened-create-cosmos-app/assets/8848650/efe89d93-1c01-4d99-b5ab-685dae50aceb">
+
+Full call-stack from the browser:
+```
+Object
+node_modules/next/dist/pages/_document.js (2:0)
+eval
+file:///Users/samuelsiegart/hardened-create-cosmos-app/node_modules/ses/src/make-evaluate.js (92:27)
+./node_modules/next/dist/pages/_document.js
+file:///Users/samuelsiegart/hardened-create-cosmos-app/.next/server/vendor-chunks/next.js (30:1)
+__webpack_require__
+file:///Users/samuelsiegart/hardened-create-cosmos-app/.next/server/webpack-runtime.js (33:42)
+__webpack_exec__
+file:///Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/_document.js (52:39)
+<unknown>
+file:///Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/_document.js (53:83)
+__webpack_require__.X
+file:///Users/samuelsiegart/hardened-create-cosmos-app/.next/server/webpack-runtime.js (185:21)
+<unknown>
+file:///Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/_document.js (53:47)
+Object.<anonymous>
+file:///Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/_document.js (56:3)
+```
+
+Logs from the server:
+```
+% 
+yarn dev
+yarn run v1.22.21
+$ next dev
+  ▲ Next.js 13.5.6
+  - Local:        http://localhost:3000
+
+ ✓ Ready in 2.4s
+ ✓ Compiled / in 1433ms (2269 modules)
+ ⨯ [ReferenceError: __webpack_require__ is not defined
+  at Object.eval (webpack-internal:///./node_modules/next/dist/build/webpack/loaders/next-route-loader/index.js?kind=PAGES&page=%2F&preferredRegion=&absolutePagePath=.%2Fpages%2Findex.tsx&absoluteAppPath=private-next-pages%2F_app&absoluteDocumentPath=private-next-pages%2F_document&middlewareConfigBase64=e30%3D!:1:1)
+  at eval (eval at makeEvaluate (file:///Users/samuelsiegart/hardened-create-cosmos-app/node_modules/ses/src/make-evaluate.js:92:27), <anonymous>:12:22)
+  at ./node_modules/next/dist/build/webpack/loaders/next-route-loader/index.js?kind=PAGES&page=%2F&preferredRegion=&absolutePagePath=.%2Fpages%2Findex.tsx&absoluteAppPath=private-next-pages%2F_app&absoluteDocumentPath=private-next-pages%2F_document&middlewareConfigBase64=e30%3D! (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/index.js:22:1)
+  at __webpack_require__ (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/webpack-runtime.js:33:42)
+  at __webpack_exec__ (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/index.js:361:39)
+  at /Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/index.js:362:114
+  at __webpack_require__.X (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/webpack-runtime.js:185:21)
+  at /Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/index.js:362:47
+  at Object.<anonymous> (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/index.js:365:3)] {
+  page: '/'
+}
+ ✓ Compiled /_error in 1752ms (2271 modules)
+[ReferenceError: exports is not defined
+  at Object.eval (webpack-internal:///./node_modules/next/dist/pages/_document.js:2:23)
+  at eval (eval at makeEvaluate (file:///Users/samuelsiegart/hardened-create-cosmos-app/node_modules/ses/src/make-evaluate.js:92:27), <anonymous>:12:22)
+  at ./node_modules/next/dist/pages/_document.js (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/vendor-chunks/next.js:30:1)
+  at __webpack_require__ (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/webpack-runtime.js:33:42)
+  at __webpack_exec__ (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/_document.js:52:39)
+  at /Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/_document.js:53:83
+  at __webpack_require__.X (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/webpack-runtime.js:185:21)
+  at /Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/_document.js:53:47
+  at Object.<anonymous> (/Users/samuelsiegart/hardened-create-cosmos-app/.next/server/pages/_document.js:56:3)]
+```
+
+I was able to simply `import 'ses'` in the top-level without issue. The above error only occurs when I attempt to invoke `lockdown` as the current changes in the repo reflect.
+
+
+# Create-cosmos-app docs below:
 
 ## Getting Started
 
