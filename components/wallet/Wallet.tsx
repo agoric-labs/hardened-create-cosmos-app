@@ -11,7 +11,7 @@ import { chains } from 'chain-registry';
 import { User } from './User';
 import { Chain } from './Chain';
 import { Warning } from './Warning';
-import { CHAIN_NAME, CHAIN_NAME_STORAGE_KEY } from '@/config';
+// import { CHAIN_NAME, CHAIN_NAME_STORAGE_KEY } from '@/config';
 import {
   ButtonConnect,
   ButtonConnected,
@@ -21,6 +21,7 @@ import {
   ButtonNotExist,
   ButtonRejected,
 } from './Connect';
+import { CHAIN_NAME, CHAIN_NAME_STORAGE_KEY } from '../../config';
 
 export type WalletProps = {
   chainName?: string;

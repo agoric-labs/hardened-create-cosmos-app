@@ -7,7 +7,8 @@ import {
   useColorModeValue,
   useTheme,
 } from "@interchain-ui/react";
-import { dependencies } from "@/config";
+import { dependencies } from "../../config";
+// import { dependencies } from "@/config";
 
 const stacks = ["CosmosKit", "Next.js"];
 
