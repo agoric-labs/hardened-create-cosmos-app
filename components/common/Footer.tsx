@@ -7,7 +7,8 @@ import {
   Text,
   useColorModeValue,
 } from "@interchain-ui/react";
-import { dependencies, products, Project } from "@/config";
+import { Project, dependencies, products } from "../../config";
+// import { dependencies, products, Project } from "@/config";
 
 function Product({ name, desc, link }: Project) {
   return (
