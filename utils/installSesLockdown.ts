@@ -12,7 +12,6 @@ let lockdownstatus = false;
     stackFiltering: "verbose",
     localeTaming: "unsafe",
   });
-  lockdownstatus = true;
   console.log("SES lockdown installed...");
   Error.stackTraceLimit = Infinity;
 
