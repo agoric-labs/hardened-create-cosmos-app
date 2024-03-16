@@ -2,7 +2,6 @@ let lockdownstatus = false;
 
 // execute upon import
 (async () => {
-  if (lockdownstatus) return;
   await import("ses"); // adds lockdown, harden, and Compartment
   console.log("Installing lockdown...");
   lockdown({
@@ -14,8 +13,6 @@ let lockdownstatus = false;
   });
   console.log("SES lockdown installed...");
   Error.stackTraceLimit = Infinity;
-
-  lockdownstatus = true;
 })();
 
 export default function initiateLockdown() {
