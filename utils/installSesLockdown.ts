@@ -1,18 +1,19 @@
-let lockdownstatus = false;
-
 // execute upon import
 (async () => {
   await import("ses"); // adds lockdown, harden, and Compartment
-  console.log("Installing lockdown...");
+  const consoleTaming =
+    process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test"
+      ? "unsafe"
+      : "safe";
+
   lockdown({
-    errorTaming: "safe",
-    overrideTaming: "moderate",
-    consoleTaming: "unsafe",
-    stackFiltering: "verbose",
-    localeTaming: "unsafe",
+    errorTaming: "unsafe",
+    overrideTaming: "severe",
+    consoleTaming,
   });
-  console.log("SES lockdown installed...");
+
   Error.stackTraceLimit = Infinity;
+
 })();
 
 export default function initiateLockdown() {
